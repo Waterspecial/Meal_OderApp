@@ -1,10 +1,10 @@
 import React, { useRef, useState } from "react";
-import classes from "Checkout.module.css";
+import styles from "./Checkout.module.css";
 
-const isEmpty = (value) => value.trim() !== "";
+const isEmpty = (value) => value.trim() === "";
 const isNotFiveChars = (value) => value.trim().length === 5;
 
-const CheckOut = (props) => {
+const Checkout = (props) => {
   const [formInputValidity, setFormInputValidity] = useState({
     name: true,
     street: true,
@@ -25,9 +25,9 @@ const CheckOut = (props) => {
     const enteredPostalCode = postalCodeInputRef.current.value;
     const enteredCity = cityInputRef.current.value;
 
-    const enteredValidName = isEmpty(enteredName);
-    const enteredValidStreet = isEmpty(enteredStreet);
-    const enteredValidPostalCode = isEmpty(enteredPostalCode);
+    const enteredValidName = !isEmpty(enteredName);
+    const enteredValidStreet = !isEmpty(enteredStreet);
+    const enteredValidPostalCode = !isEmpty(enteredPostalCode);
     const enteredValidCity = isNotFiveChars(enteredCity);
 
     setFormInputValidity({
@@ -54,51 +54,51 @@ const CheckOut = (props) => {
     });
   };
 
-  const nameControlClasses = `${classes.control} ${
-    formInputValidity.name ? "" : classes.inavlid
+  const nameControlstyles = `${styles.control} ${
+    formInputValidity.name ? "" : styles.inavlid
   }`;
-  const streetControlClasses = `${classes.control} ${
-    formInputValidity.street ? "" : classes.inavlid
+  const streetControlstyles = `${styles.control} ${
+    formInputValidity.street ? "" : styles.inavlid
   }`;
-  const cityControlClasses = `${classes.control} ${
-    formInputValidity.city ? "" : classes.inavlid
+  const cityControlstyles = `${styles.control} ${
+    formInputValidity.city ? "" : styles.inavlid
   }`;
-  const postalCodeControlClasses = `${classes.control} ${
-    formInputValidity.postalCode ? "" : classes.inavlid
+  const postalCodeControlstyles = `${styles.control} ${
+    formInputValidity.postalCode ? "" : styles.inavlid
   }`;
 
   return (
-    <form className={classes.form} onSubmit={confirmHandler}>
-      <div className={nameControlClasses}>
+    <form className={styles.form} onSubmit={confirmHandler}>
+      <div className={nameControlstyles}>
         <label htmlFor="name">Your Name</label>
-        <input type="text" id="" ref={nameInputRef} />
+        <input type="text" id="name" ref={nameInputRef} />
         {!formInputValidity.name && <p>Please enter a valid name!</p>}
       </div>
-      <div className={streetControlClasses}>
+      <div className={streetControlstyles}>
         <label htmlFor="">Street</label>
-        <input type="text" id="" ref={streetInputRef} />
-        {!formInputValidity.name && <p>Please enter a valid street!</p>}
+        <input type="text" id="street" ref={streetInputRef} />
+        {!formInputValidity.street && <p>Please enter a valid street!</p>}
       </div>
-      <div className={postalCodeControlClasses}>
+      <div className={postalCodeControlstyles}>
         <label htmlFor="">Postal Code</label>
-        <input type="text" id="" ref={postalCodeInputRef} />
-        {!formInputValidity.name && (
+        <input type="text" id="postal" ref={postalCodeInputRef} />
+        {!formInputValidity.postalCode && (
           <p>Please enter a valid posatl code (5 character long)!</p>
         )}
       </div>
-      <div className={cityControlClasses}>
+      <div className={cityControlstyles}>
         <label htmlFor="">City</label>
-        <input type="text" id="" ref={cityInputRef} />
-        {!formInputValidity.name && <p>Please enter a valid city!</p>}
+        <input type="text" id="city" ref={cityInputRef} />
+        {!formInputValidity.city && <p>Please enter a valid city!</p>}
       </div>
-      <div className={classes.actions}>
-        <button type="button" onClick={props.OnCancel}>
+      <div className={styles.actions}>
+        <button type="button" onClick={props.onCancel}>
           Cancel
         </button>
-        <button className={classes.button}>Confirm</button>
+        <button className={styles.button}>Confirm</button>
       </div>
     </form>
   );
 };
 
-export default CheckOut;
+export default Checkout;
